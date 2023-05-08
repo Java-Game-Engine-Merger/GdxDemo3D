@@ -17,9 +17,9 @@ allprojects {
     version = '1.0'
     ext {
         appName = 'GdxDemo3D'
-        gdxVersion = '1.10.1-SNAPSHOT'
+        gdxVersion = '1.11.0'
         roboVMVersion = '1.13.0'
-        controllerVersion = '2.2.0-SNAPSHOT'
+        controllerVersion = '2.2.2'
         aiVersion = '1.8.0'
     }
 
@@ -34,22 +34,26 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java"
-
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
 
     dependencies {
         compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+        compile("com.badlogicgames.gdx:gdx-tools:$gdxVersion") {
+            exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'
+        }
         compile "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$controllerVersion"
     }
 }
 
 project(":core") {
     apply plugin: "java"
-    project.sourceCompatibility = "1.7"
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -57,7 +61,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx-controllers:gdx-controllers-core:$controllerVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-        compile "com.github.piotr-j:bte:0.7.3"  // LOG -> https://jitpack.io/com/github/piotr-j/bte2/master-SNAPSHOT/build.log
+        compile 'com.github.piotr-j.bte2:bte:4ea4bd554e'  // LOG -> https://jitpack.io/com/github/piotr-j/bte2/master-SNAPSHOT/build.log
         compile "com.kotcrab.vis:vis-ui:1.5.0"
     }
 }
